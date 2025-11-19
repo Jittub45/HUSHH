@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: template-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: template-backend
+  template:
+    metadata:
+      labels:
+        app: template-backend
+    spec:
+      containers:
+        - name: backend
+          image: "REPLACE_WITH_BACKEND_IMAGE"
+          ports:
+            - containerPort: 8000
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-uri
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: template-backend
+spec:
+  selector:
+    app: template-backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: ClusterIP

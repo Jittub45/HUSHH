@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: template-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: template-frontend
+  template:
+    metadata:
+      labels:
+        app: template-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: "REPLACE_WITH_FRONTEND_IMAGE"
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: template-frontend
+spec:
+  selector:
+    app: template-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer

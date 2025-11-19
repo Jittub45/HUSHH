@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Template Frontend</title>
+    <style>
+      body{font-family:system-ui,Segoe UI,Arial;margin:40px}
+      header{margin-bottom:20px}
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Template Frontend</h1>
+      <p>Simple static page that queries the backend API.</p>
+    </header>
+    <main>
+      <button id="btn">Fetch items</button>
+      <pre id="out"></pre>
+    </main>
+
+    <script>
+      const out = document.getElementById('out');
+      document.getElementById('btn').addEventListener('click', async () => {
+        out.textContent = 'loading...';
+        try {
+          const res = await fetch('/api/items');
+          const data = await res.json();
+          out.textContent = JSON.stringify(data, null, 2);
+        } catch (err) {
+          out.textContent = 'Error: ' + err.message;
+        }
+      });
+    </script>
+  </body>
+</html>

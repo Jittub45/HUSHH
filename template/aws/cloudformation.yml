@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Simple CloudFormation sample that creates an S3 bucket and an ECR repository (placeholders only).
+Parameters:
+  EnvironmentName:
+    Type: String
+    Default: dev
+Resources:
+  TemplateBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'template-bucket-${EnvironmentName}-${AWS::AccountId}'
+
+  TemplateECR:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: !Sub 'template-repo-${EnvironmentName}'
+
+Outputs:
+  BucketName:
+    Value: !Ref TemplateBucket
+  EcrRepositoryUri:
+    Value: !GetAtt TemplateECR.RepositoryUri

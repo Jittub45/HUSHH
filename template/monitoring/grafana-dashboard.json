@@ -1,0 +1,13 @@
+{
+  "title": "Template App Overview",
+  "panels": [
+    {
+      "type": "text",
+      "title": "Status",
+      "options": {
+        "content": "Simple dashboard. Add panels for CPU, memory, request latency."
+      }
+    }
+  ],
+  "schemaVersion": 27
+}
